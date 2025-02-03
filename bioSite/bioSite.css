@@ -1,0 +1,125 @@
+/* Global Text Styling */
+h1, h2, p {
+  text-align: center; /* Common alignment */
+  font-style: 'Bierstadt'; /* Apply Bierstadt font style globally to headings */
+}
+
+h1 {
+  font-size: 36pt;
+}
+
+h2 {
+  font-size: 28pt;
+}
+
+p {
+  font-family: 'Bierstadt Display', sans-serif;
+  font-size: 22pt;
+}
+
+/* Navbar Styling */
+#navbar {
+  overflow: hidden;
+  border: 15px solid #84DCCF;
+  background-color: #84DCCF;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #001011;
+  background-color: #84DCCF;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#navbar a:hover {
+  background-color: #757780;
+  color: #F49D6E;
+}
+
+/* Layout Styling */
+#topLeft, #topRight, #midLeft, #midRight, #bottomLeft, #bottomRight {
+  display: inline-block;
+  width: 43%;              
+  margin-right: 3%;
+}
+
+.profile, .bio {
+  display: inline-block;
+  margin-right: 3%;
+  vertical-align: top;
+  width: 48%;
+}
+
+#topLeft, #topRight {
+  vertical-align: top;
+}
+
+#midLeft, #midRight {
+  vertical-align: middle;
+}
+
+#bottomLeft, #bottomRight {
+  vertical-align: bottom;
+}
+
+/* Footer Styling */
+footer {
+  width: 100%;
+  clear: both;
+  margin-bottom: 20px;
+  text-align: right;
+  vertical-align: bottom;
+}
+
+/* Image Gallery Styling */
+.image-gallery {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.left_div, .center_div, .right_div {
+  width: 30%;               
+  overflow: hidden;         
+  position: relative;       
+}
+
+.left_div img, .center_div img, .right_div img {
+  width: 100%;              
+  height: 100%;             
+  object-fit: cover;       
+}
+
+/* Figure and Caption Styling */
+figure {
+  margin: 0;               
+  padding: 0;              
+}
+
+figcaption {
+  text-align: center;
+  color: white;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Hero Image Styling */
+.heroImage {
+  width: 100%;
+  height: 33vh;            
+  overflow: hidden;
+  position: relative;
+}
+
+.heroImage img {
+  width: 100%;             
+  height: 100%;            
+  object-fit: contain;     
+  object-position: center; 
+}
