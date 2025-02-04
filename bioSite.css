@@ -1,7 +1,6 @@
-/* Global Text Styling */
 h1, h2, p {
-  text-align: center; /* Common alignment */
-  font-style: 'Bierstadt'; /* Apply Bierstadt font style globally to headings */
+  text-align: center; 
+  font-style: 'Bierstadt';
 }
 
 h1 {
@@ -67,48 +66,53 @@ p {
 
 /* Footer Styling */
 footer {
-  width: 100%;
+  width: 98%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   clear: both;
   margin-bottom: 20px;
   text-align: right;
-  vertical-align: bottom;
+  margin-right: 20px;
 }
 
-/* Image Gallery Styling */
 .image-gallery {
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: center;
+  gap: 140px;
   width: 100%;
 }
 
 .left_div, .center_div, .right_div {
-  width: 30%;               
+  width: 15%;  
+  height: 20%;             
   overflow: hidden;         
-  position: relative;       
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      
 }
 
 .left_div img, .center_div img, .right_div img {
-  width: 100%;              
+  width: 70%;              
   height: 100%;             
-  object-fit: cover;       
+  object-fit: contain;       
 }
 
 /* Figure and Caption Styling */
 figure {
   margin: 0;               
-  padding: 0;              
+  padding: 0;  
+  display: block;            
 }
 
 figcaption {
   text-align: center;
   color: white;
-  padding: 10px;
-  position: absolute;
-  bottom: 0;
+  padding: 0;
+  margin-top: 10px;
   width: 100%;
 }
-
 /* Hero Image Styling */
 .heroImage {
   width: 100%;
@@ -120,6 +124,6 @@ figcaption {
 .heroImage img {
   width: 100%;             
   height: 100%;            
-  object-fit: contain;     
+  object-fit: fill;     
   object-position: center; 
 }
