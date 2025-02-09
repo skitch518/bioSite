@@ -67,7 +67,7 @@ p {
 /* Footer Styling */
 footer {
   width: 98%;
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 0;
   clear: both;
@@ -132,9 +132,61 @@ figcaption {
   display: inline-block;
   vertical-align: top; /* Aligns them on the top */
   margin-right: 20px; /* Adds space between the two */
+  overflow: hidden;
 }
 
 .profile img {
   width: 70%;             
   height: 70%;   
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.top-left {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.top-right {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.middle-left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.middle-right {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.bottom-left {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.bottom-right {
+    grid-column: 2;
+    grid-row: 3;
 }
