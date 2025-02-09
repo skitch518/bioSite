@@ -109,10 +109,11 @@ figure {
 
 figcaption {
   text-align: center;
-  color: white;
+  color: black;
   padding: 0;
   margin-top: 10px;
   width: 100%;
+  visibility: visilble;
 }
 /* Hero Image Styling */
 .heroImage {
