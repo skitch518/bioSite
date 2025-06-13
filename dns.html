@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home DNS Server with Raspberry Pi - Complete Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="guide-header">
+            <h1>🏠 Home DNS Server with Raspberry Pi</h1>
+            <p class="subtitle">Complete Infrastructure Setup with Pi-hole, Custom DNS, and Failover</p>
+            <div class="difficulty-level">Intermediate Level</div>
+        </div>
+
+        <div class="guide-content">
+            <div class="toc">
+                <h3>📋 Table of Contents</h3>
+                <ul>
+                    <li><a href="#overview">1. Project Overview</a></li>
+                    <li><a href="#requirements">2. Requirements & Hardware</a></li>
+                    <li><a href="#setup">3. Initial Raspberry Pi Setup</a></li>
+                    <li><a href="#pihole">4. Pi-hole Installation & Configuration</a></li>
+                    <li><a href="#dns">5. Custom DNS Records</a></li>
+                    <li><a href="#failover">6. Failover Configuration</a></li>
+                    <li><a href="#monitoring">7. Monitoring & Maintenance</a></li>
+                    <li><a href="#troubleshooting">8. Troubleshooting</a></li>
+                </ul>
+            </div>
+
+            <section id="overview" class="section">
+                <h2>🎯 Project Overview</h2>
+                <p>This guide will walk you through building a complete home DNS infrastructure using a Raspberry Pi. You'll learn how to set up Pi-hole for network-wide ad blocking, configure custom DNS records for your local services, and implement failover mechanisms for high availability.</p>
+                
+                <div class="architecture-diagram">
+                    <h4>🏗️ Network Architecture</h4>
+                    <p><strong>Internet</strong> ↔ <strong>Router</strong> ↔ <strong>Raspberry Pi DNS Server</strong> ↔ <strong>Home Devices</strong></p>
+                    <p>📱 Phones • 💻 Laptops • 📺 Smart TVs • 🏠 IoT Devices</p>
+                </div>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Network-wide Ad Blocking:</strong> Block ads and trackers across all devices</li>
+                    <li><strong>Custom DNS Records:</strong> Easy access to local services (e.g., server.local)</li>
+                    <li><strong>High Availability:</strong> Automatic failover to backup DNS servers</li>
+                    <li><strong>Detailed Analytics:</strong> Monitor DNS queries and blocked content</li>
+                    <li><strong>Low Power Consumption:</strong> Runs 24/7 on minimal electricity</li>
+                </ul>
+            </section>
+
+            <section id="requirements" class="section">
+                <h2>🛠️ Requirements & Hardware</h2>
+                
+                <div class="requirements">
+                    <h4>Hardware Requirements</h4>
+                    <ul>
+                        <li>Raspberry Pi 4 (2GB RAM minimum, 4GB recommended)</li>
+                        <li>MicroSD card (32GB Class 10 or better)</li>
+                        <li>Ethernet cable (recommended for stability)</li>
+                        <li>Power supply (official Raspberry Pi power adapter)</li>
+                        <li>Case with cooling (optional but recommended)</li>
+                    </ul>
+                </div>
+
+                <div class="requirements">
+                    <h4>Software Requirements</h4>
+                    <ul>
+                        <li>Raspberry Pi OS Lite (latest version)</li>
+                        <li>SSH client (PuTTY, Terminal, or PowerShell)</li>
+                        <li>Raspberry Pi Imager</li>
+                        <li>Basic Linux command line knowledge</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <strong>Pro Tip:</strong> Use a wired connection for your DNS server to ensure maximum stability and lowest latency for DNS queries.
+                </div>
+            </section>
+
+            <section id="setup" class="section">
+                <h2>🚀 Initial Raspberry Pi Setup</h2>
+
+                <h3><span class="step-counter">1</span>Prepare the SD Card</h3>
+                <p>Download and install Raspberry Pi Imager, then flash Raspberry Pi OS Lite to your SD card.</p>
+
+                <div class="code-block">
+# Enable SSH and configure WiFi (if needed) before first boot
+# Create ssh file in boot partition
+touch /boot/ssh
+
+# Configure WiFi (create wpa_supplicant.conf in boot partition)
+country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="YourWiFiName"
+    psk="YourWiFiPassword"
+}
+                </div>
+
+                <h3><span class="step-counter">2</span>Initial Configuration</h3>
+                <p>Boot your Raspberry Pi and connect via SSH. Run the configuration tool:</p>
+
+                <div class="code-block">
+sudo raspi-config
+                </div>
+
+                <p>Configure the following:</p>
+                <ul>
+                    <li>Change default password</li>
+                    <li>Enable SSH (if not already enabled)</li>
+                    <li>Set timezone</li>
+                    <li>Expand filesystem</li>
+                    <li>Set hostname (e.g., "dns-server")</li>
+                </ul>
+
+                <h3><span class="step-counter">3</span>Update System</h3>
+                <div class="code-block">
+sudo apt update && sudo apt upgrade -y
+sudo reboot
+                </div>
+
+                <h3><span class="step-counter">4</span>Set Static IP Address</h3>
+                <p>Edit the dhcpcd configuration:</p>
+
+                <div class="code-block">
+sudo nano /etc/dhcpcd.conf
+
+# Add these lines at the end (adjust for your network):
+interface eth0
+static ip_address=192.168.1.100/24
+static routers=192.168.1.1
+static domain_name_servers=1.1.1.1 8.8.8.8
+                </div>
+
+                <div class="warning">
+                    <strong>Important:</strong> Choose an IP address outside your router's DHCP range to avoid conflicts.
+                </div>
+            </section>
+
+            <section id="pihole" class="section">
+                <h2>🕳️ Pi-hole Installation & Configuration</h2>
+
+                <h3><span class="step-counter">1</span>Install Pi-hole</h3>
+                <p>Run the automated installer:</p>
+
+                <div class="code-block">
+curl -sSL https://install.pi-hole.net | bash
+                </div>
+
+                <p>During installation, configure:</p>
+                <ul>
+                    <li>Upstream DNS servers (Cloudflare: 1.1.1.1, 1.0.0.1)</li>
+                    <li>Block lists (select default lists)</li>
+                    <li>Admin web interface (Yes)</li>
+                    <li>Web server (Yes)</li>
+                    <li>Query logging (Yes)</li>
+                    <li>Privacy mode (Show everything)</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>Note:</strong> Save the admin password displayed at the end of installation!
+                </div>
+
+                <h3><span class="step-counter">2</span>Configure Router DNS Settings</h3>
+                <p>Update your router's DNS settings to point to your Pi-hole server:</p>
+                <ul>
+                    <li>Primary DNS: 192.168.1.100 (your Pi-hole IP)</li>
+                    <li>Secondary DNS: 1.1.1.1 (backup)</li>
+                </ul>
+
+                <div class="config-section">
+                    <h4>🔧 Pi-hole Configuration Files</h4>
+                    <p><strong>Main config:</strong> <code>/etc/pihole/pihole-FTL.conf</code></p>
+                    <p><strong>Custom DNS:</strong> <code>/etc/pihole/custom.list</code></p>
+                    <p><strong>Whitelist:</strong> <code>/etc/pihole/whitelist.txt</code></p>
+                    <p><strong>Blacklist:</strong> <code>/etc/pihole/blacklist.txt</code></p>
+                </div>
+
+                <h3><span class="step-counter">3</span>Access Web Interface</h3>
+                <p>Open your browser and navigate to:</p>
+                <div class="code-block">
+http://192.168.1.100/admin
+                </div>
+
+                <p>Login with the password from installation and explore the dashboard.</p>
+            </section>
+
+            <section id="dns" class="section">
+                <h2>🏷️ Custom DNS Records</h2>
+
+                <h3><span class="step-counter">1</span>Add Local DNS Records</h3>
+                <p>Create custom DNS entries for your local services:</p>
+
+                <div class="code-block">
+sudo nano /etc/pihole/custom.list
+
+# Add entries in format: IP_ADDRESS DOMAIN_NAME
+192.168.1.150 homeserver.local
+192.168.1.151 nas.local
+192.168.1.152 camera.local
+192.168.1.153 printer.local
+                </div>
+
+                <h3><span class="step-counter">2</span>Restart DNS Service</h3>
+                <div class="code-block">
+sudo pihole restartdns
+                </div>
+
+                <h3><span class="step-counter">3</span>Test Custom DNS</h3>
+                <div class="code-block">
+nslookup homeserver.local 192.168.1.100
+                </div>
+
+                <div class="tip">
+                    <strong>Pro Tip:</strong> Use the Pi-hole web interface to add custom DNS records through the GUI for easier management.
+                </div>
+            </section>
+
+            <section id="failover" class="section">
+                <h2>🔄 Failover Configuration</h2>
+
+                <h3><span class="step-counter">1</span>Configure Unbound as Recursive DNS</h3>
+                <p>Install Unbound for better privacy and performance:</p>
+
+                <div class="code-block">
+sudo apt install unbound
+
+# Configure Unbound
+sudo nano /etc/unbound/unbound.conf.d/pi-hole.conf
+                </div>
+
+                <div class="config-section">
+                    <h4>Unbound Configuration</h4>
+                    <div class="code-block">
+server:
+    verbosity: 0
+    interface: 127.0.0.1
+    port: 5335
+    do-ip4: yes
+    do-udp: yes
+    do-tcp: yes
+    do-ip6: no
+    do-daemonize: yes
+    access-control: 127.0.0.1/32 allow
+    hide-identity: yes
+    hide-version: yes
+    harden-glue: yes
+    harden-dnssec-stripped: yes
+    cache-min-ttl: 3600
+    cache-max-ttl: 86400
+    prefetch: yes
+    num-threads: 1
+                    </div>
+                </div>
+
+                <h3><span class="step-counter">2</span>Set Up DNS Monitoring</h3>
+                <p>Create a monitoring script:</p>
+
+                <div class="code-block">
+sudo nano /home/pi/dns-monitor.sh
+
+#!/bin/bash
+# DNS Health Check Script
+PRIMARY_DNS="127.0.0.1"
+BACKUP_DNS="1.1.1.1"
+TEST_DOMAIN="google.com"
+
+if ! nslookup $TEST_DOMAIN $PRIMARY_DNS > /dev/null 2>&1; then
+    echo "$(date): Primary DNS failed, switching to backup" >> /var/log/dns-monitor.log
+    # Add failover logic here
+fi
+                </div>
+
+                <div class="code-block">
+chmod +x /home/pi/dns-monitor.sh
+
+# Add to crontab for regular checks
+crontab -e
+# Add: */5 * * * * /home/pi/dns-monitor.sh
+                </div>
+
+                <h3><span class="step-counter">3</span>Configure Multiple DNS Servers</h3>
+                <p>Set up your router with multiple DNS servers for redundancy:</p>
+                <ul>
+                    <li>Primary DNS: 192.168.1.100 (Pi-hole)</li>
+                    <li>Secondary DNS: 1.1.1.1 (Cloudflare)</li>
+                    <li>Tertiary DNS: 8.8.8.8 (Google)</li>
+                </ul>
+            </section>
+
+            <section id="monitoring" class="section">
+                <h2>📊 Monitoring & Maintenance</h2>
+
+                <h3><span class="step-counter">1</span>Pi-hole Dashboard</h3>
+                <p>Monitor your DNS server through the web interface:</p>
+                <ul>
+                    <li>Query statistics and trends</li>
+                    <li>Top blocked domains</li>
+                    <li>Query types and client activity</li>
+                    <li>Blacklist and whitelist management</li>
+                </ul>
+
+                <h3><span class="step-counter">2</span>Log Analysis</h3>
+                <div class="code-block">
+# View Pi-hole logs
+sudo tail -f /var/log/pihole.log
+
+# View DNS query logs
+sudo tail -f /var/log/pihole-FTL.log
+
+# System logs
+sudo journalctl -u pihole-FTL -f
+                </div>
+
+                <h3><span class="step-counter">3</span>Regular Maintenance Tasks</h3>
+                <ul>
+                    <li>Update Pi-hole: <code>pihole -up</code></li>
+                    <li>Update system: <code>sudo apt update && sudo apt upgrade</code></li>
+                    <li>Monitor SD card health</li>
+                    <li>Backup configurations regularly</li>
+                    <li>Review and update block lists</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>Automation Tip:</strong> Set up automatic updates and backups using cron jobs for hands-off maintenance.
+                </div>
+            </section>
+
+            <section id="troubleshooting" class="section">
+                <h2>🔧 Troubleshooting</h2>
+
+                <h3>Common Issues and Solutions</h3>
+
+                <div class="warning">
+                    <strong>DNS Not Working:</strong>
+                    <ul>
+                        <li>Check if Pi-hole service is running: <code>sudo systemctl status pihole-FTL</code></li>
+                        <li>Verify network connectivity: <code>ping 8.8.8.8</code></li>
+                        <li>Confirm router DNS settings</li>
+                        <li>Check firewall rules</li>
+                    </ul>
+                </div>
+
+                <div class="warning">
+                    <strong>Web Interface Not Accessible:</strong>
+                    <ul>
+                        <li>Restart lighttpd: <code>sudo systemctl restart lighttpd</code></li>
+                        <li>Check if port 80 is open: <code>sudo netstat -tulpn | grep :80</code></li>
+                        <li>Verify Pi-hole installation</li>
+                    </ul>
+                </div>
+
+                <h3>Useful Commands</h3>
+                <div class="code-block">
+# Pi-hole status
+pihole status
+
+# Restart Pi-hole
+sudo systemctl restart pihole-FTL
+
+# Flush DNS cache
+pihole flushdb
+
+# Tail logs
+pihole -t
+
+# Check Pi-hole version
+pihole version
+
+# Repair Pi-hole
+pihole -r
+                </div>
+
+                <h3>Performance Optimization</h3>
+                <ul>
+                    <li>Increase query cache size in Pi-hole settings</li>
+                    <li>Use SSD instead of SD card for better performance</li>
+                    <li>Optimize block lists (remove duplicate entries)</li>
+                    <li>Configure log rotation to prevent disk space issues</li>
+                </ul>
+            </section>
+
+            <div class="nav-buttons">
+                <a href="index.html" class="nav-button prev">← Back to Projects</a>
+                <a href="#" class="nav-button next">View Configuration Files →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

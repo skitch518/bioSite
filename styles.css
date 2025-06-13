@@ -487,3 +487,7 @@ nav .container {
         transform: translateY(0);
     }
 }
+#achievements img {
+    max-width: 200px;
+    height: auto;
+}
