@@ -520,4 +520,49 @@ nav .container {
     margin-bottom: 2rem;
     text-align: center; /* Centers text inside */
 }
+.photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .photo-item {
+      background: #1e293b;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .photo-item p {
+      font-size: 0.875rem;
+      color: var(--text-light);
+    }
+.nav-buttons {
+    position: fixed;
+    bottom: 20px;   /* distance from the bottom */
+    right: 20px;    /* distance from the right */
+    z-index: 1000;  /* ensures it stays above other elements if needed */
+}
+
+.nav-button {
+    background-color: #007bff; /* Example styling */
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+}
+
 

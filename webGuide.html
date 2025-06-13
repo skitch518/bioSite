@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 Setting Up My Home Web Server - Complete Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="guide-header">
+            <h1>🌐 Setting Up My Home Web Server</h1>
+            <p class="subtitle">Walkthrough of my self-hosted portfolio website</p>
+        </div>
+
+        <section id="overview" class="section">
+            <div class="project-card">
+                <h2>🎯 Project Overview</h2>
+                <p>This guide details the steps I took to set up my home web server infrastructure, including server installation, dynamic DNS setup, SSL certificate configuration, and more.</p>
+
+                <div class="architecture-diagram">
+                    <h4>🏗️ Network Architecture</h4>
+                    <p><strong>Internet</strong> ↔ <strong>Router</strong> ↔ <strong>Home Server</strong> ↔ <strong>My Portfolio Website</strong></p>
+                    <p>📱 Phones • 💻 Laptops • 🖥️ Desktop PCs</p>
+                </div>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Secure SSL Certificates:</strong> Automated SSL certificate generation and renewal with Let's Encrypt.</li>
+                    <li><strong>Dynamic DNS:</strong> Keeps the website accessible even with changing IP addresses.</li>
+                    <li><strong>Backup & Monitoring:</strong> Automated backup system and server health monitoring.</li>
+                    <li><strong>Custom Domain:</strong> Set up routing for a custom domain for better accessibility.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="hardware-software" class="section">
+            <div class="project-card">
+                <h2>🛠️ Hardware & Software Used</h2>
+
+                <div class="requirements">
+                    <h4>Hardware</h4>
+                    <ul>
+                        <li>Home Server (Ubuntu Linux-based)</li>
+                        <li>Raspberry Pi (for monitoring) or similar</li>
+                        <li>1TB External SSD</li>
+                        <li>Router with port forwarding capabilities</li>
+                    </ul>
+                </div>
+
+                <div class="requirements">
+                    <h4>Software Used</h4>
+                    <ul>
+                        <li>Nginx (Reverse Proxy)</li>
+                        <li>Let's Encrypt (for SSL Certificates)</li>
+                        <li>Dynamic DNS Service (e.g., DuckDNS)</li>
+                        <li>Bash Scripts for Automation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="server-setup" class="section">
+            <div class="project-card">
+                <h2>🚀 Setting Up the Home Server</h2>
+
+                <h3><span class="step-counter">1 </span>Installed Ubuntu on Home Server</h3>
+                <p>First, I installed the latest stable version of **Ubuntu** on the home server and performed an initial system update:</p>
+                <div class="code-block">
+                    sudo apt update && sudo apt upgrade -y
+                </div>
+
+                <h3><span class="step-counter">2 </span>Installed Nginx</h3>
+                <p>I installed **Nginx** to serve the website and act as a reverse proxy for the Java backend:</p>
+                <div class="code-block">
+                    sudo apt install nginx
+                </div>
+
+                <h3><span class="step-counter">3 </span>Set Up SSL with Let's Encrypt</h3>
+                <p>Used **Certbot** to automatically generate and install SSL certificates for secure HTTPS connections:</p>
+                <div class="code-block">
+                    sudo apt install certbot python3-certbot-nginx
+                    sudo certbot --nginx -d yourdomain.com
+                </div>
+
+                <p>Set up automatic certificate renewal to avoid manual intervention:</p>
+                <div class="code-block">
+                    sudo systemctl enable certbot.timer
+                </div>
+            </div>
+        </section>
+
+        <section id="dynamic-dns" class="section">
+            <div class="project-card">
+                <h2>🌍 Dynamic DNS Setup</h2>
+                <p>To ensure the website remains accessible even if my IP address changes, I set up a **Dynamic DNS** service using **DuckDNS**:</p>
+                <div class="code-block">
+                    sudo apt install ddclient
+                </div>
+
+                <p>I then configured **ddclient** to update my DNS records every time my IP changes:</p>
+                <div class="code-block">
+                    sudo nano /etc/ddclient.conf
+                </div>
+                <p>Configuration includes your DuckDNS credentials and domain:</p>
+                <div class="code-block">
+                    protocol=duckdns
+                    ssl=yes
+                    login=your_duckdns_token
+                    password='your_duckdns_token'
+                    yourdomain.duckdns.org
+                </div>
+            </div>
+        </section>
+
+        <section id="backup-monitoring" class="section">
+            <div class="project-card">
+                <h2>📦 Backup & Monitoring Setup</h2>
+                <p>Set up automated backups using **rsync** to back up important files:</p>
+                <div class="code-block">
+                    rsync -av --delete /var/www/ /backup/directory/
+                </div>
+
+                <p>Used **Uptime Robot** to monitor the website’s uptime and health, ensuring it's always online.</p>
+            </div>
+        </section>
+
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-button prev">← Back to Projects</a>
+        </div>
+    </div>
+</body>
+</html>
