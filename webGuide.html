@@ -41,9 +41,9 @@
                 <div class="requirements">
                     <h4>Hardware</h4>
                     <ul>
-                        <li>Home Server (Ubuntu Linux-based)</li>
-                        <li>Raspberry Pi (for monitoring) or similar</li>
-                        <li>1TB External SSD</li>
+                        <li>Home Server </li>
+                        <li>Raspberry Pi </li>
+                        <li>1TB SSD</li>
                         <li>Router with port forwarding capabilities</li>
                     </ul>
                 </div>
@@ -64,65 +64,30 @@
             <div class="project-card">
                 <h2>🚀 Setting Up the Home Server</h2>
 
-                <h3><span class="step-counter">1 </span>Installed Ubuntu on Home Server</h3>
-                <p>First, I installed the latest stable version of **Ubuntu** on the home server and performed an initial system update:</p>
+                <h3><span class="step-counter">1 </span>Installed Pi-hole on Home Server</h3>
+                <p>First, I installed the latest stable version of Pi-hole on the home server and performed an initial system update:</p>
                 <div class="code-block">
-                    sudo apt update && sudo apt upgrade -y
+                    
                 </div>
-
                 <h3><span class="step-counter">2 </span>Installed Nginx</h3>
                 <p>I installed **Nginx** to serve the website and act as a reverse proxy for the Java backend:</p>
                 <div class="code-block">
-                    sudo apt install nginx
                 </div>
 
                 <h3><span class="step-counter">3 </span>Set Up SSL with Let's Encrypt</h3>
                 <p>Used **Certbot** to automatically generate and install SSL certificates for secure HTTPS connections:</p>
                 <div class="code-block">
-                    sudo apt install certbot python3-certbot-nginx
-                    sudo certbot --nginx -d yourdomain.com
+                    
                 </div>
 
                 <p>Set up automatic certificate renewal to avoid manual intervention:</p>
-                <div class="code-block">
-                    sudo systemctl enable certbot.timer
-                </div>
-            </div>
-        </section>
-
-        <section id="dynamic-dns" class="section">
-            <div class="project-card">
-                <h2>🌍 Dynamic DNS Setup</h2>
-                <p>To ensure the website remains accessible even if my IP address changes, I set up a **Dynamic DNS** service using **DuckDNS**:</p>
-                <div class="code-block">
-                    sudo apt install ddclient
-                </div>
-
-                <p>I then configured **ddclient** to update my DNS records every time my IP changes:</p>
-                <div class="code-block">
-                    sudo nano /etc/ddclient.conf
-                </div>
-                <p>Configuration includes your DuckDNS credentials and domain:</p>
-                <div class="code-block">
-                    protocol=duckdns
-                    ssl=yes
-                    login=your_duckdns_token
-                    password='your_duckdns_token'
-                    yourdomain.duckdns.org
-                </div>
-            </div>
         </section>
 
         <section id="backup-monitoring" class="section">
             <div class="project-card">
-                <h2>📦 Backup & Monitoring Setup</h2>
-                <p>Set up automated backups using **rsync** to back up important files:</p>
-                <div class="code-block">
-                    rsync -av --delete /var/www/ /backup/directory/
-                </div>
-
-                <p>Used **Uptime Robot** to monitor the website’s uptime and health, ensuring it's always online.</p>
-            </div>
+                <h2> Lessons Learned</h2>
+                <p>I learned how to...</p>
+                
         </section>
 
         <div class="nav-buttons">
