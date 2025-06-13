@@ -63,7 +63,7 @@ nav .container {
 }
 
 .nav-links a {
-    color: var(--text-light);
+    color: white;
     text-decoration: none;
     transition: color 0.3s ease;
     position: relative;
@@ -491,3 +491,33 @@ nav .container {
     max-width: 200px;
     height: auto;
 }
+.guide-header {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+}
+.guide-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+.guide-header .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+.guide-header .difficulty-level {
+    font-size: 1rem;
+    background-color: var(--bg-card);
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    border-radius: 0.5rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    margin-top: 1rem;
+}
+.guide-header {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+    text-align: center; /* Centers text inside */
+}
+
