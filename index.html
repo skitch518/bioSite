@@ -1,55 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Biosite Home</title>
-  <link rel="stylesheet" href="bioSite.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jason Schriner Profile Site</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <div id="navbar">
-    <a href='https://skitch518.github.io/bioSite'>Home</a>
-    <a href='https://skitch518.github.io/bioSite/About.html'>About</a>
-    <a href='https://skitch518.github.io/bioSite/Contact.html'>Contact</a>
-  </div>
+    <nav>
+        <div class="container">
+            <div class="logo">JasonSchriner.com</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <div class="heroImage">
-    <img src="images/hero3.jpg" alt="Retirement Image">
-  </div>
-
-   <h1>The Story of Robert Burke</h1>
-  <div class="image-gallery">
-    <div class="left_div">
-      <a href='https://skitch518.github.io/bioSite/About.html'>
-       <figure>
-        <img src="images/profile.jpg" alt="Profile Picture">
-        <figcaption>About</figcaption>
-      </figure>
-     </a>
+    <!-- Status Indicator -->
+    <div class="status-indicator">
+        <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-light);">Server Status</div>
+        <div class="status-item">
+            <div class="status-dot"></div>
+            <span style="font-size: 0.875rem;">DNS Server Online</span>
+        </div>
+        <div class="status-item">
+            <div class="status-dot"></div>
+            <span style="font-size: 0.875rem;">Self-Hosted</span>
+        </div>
+        <div class="status-item">
+            <div class="status-dot"></div>
+            <span style="font-size: 0.875rem;">Pi-hole Active</span>
+        </div>
     </div>
 
-    <div class="center_div">
-      <a href = 'https://skitch518.github.io/bioSite/Hobbies.html'>
-       <figure>
-        <img src="images/hikingSmall.jpg" alt="Hiking">
-        <figcaption>Hobbies</figcaption>
-      </figure>
-     </a>
-    </div>
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content fade-in">
+                    <div class="hero-text">
+                        <h1>Software Development Student</h1>
+                        <p class="subtitle">Building robust infrastructure from the ground up</p>
+                        <p class="description">
+                            Welcome to my corner of the internet! This very website runs on my home 
+			    infrastructure, powered by Raspberry Pi technology and custom DNS solutions.
+                        </p>
+                        <div class="cta-buttons">
+                            <a href="#projects" class="btn btn-primary">
+                                🚀 View My Projects
+                            </a>
+                            <a href="#contact" class="btn btn-secondary">
+                                📧 Get In Touch
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="profile-photo">
+                            <img src="profile-photo.jpg" alt="Jason Schriner - Systems Engineer" />
+                            <div class="photo-border"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <div class="right_div">
-      <a href = 'https://skitch518.github.io/bioSite/ImageGallery.html'>
-       <figure>
-        <img src="images/family.jpg" alt="Family">
-        <figcaption>Image Gallery</figcaption>
-      </figure>
-     </a>
-    </div>
-  </div>
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2>Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-icon">🏠</div>
+                        <h3>Home DNS Server with Raspberry Pi</h3>
+                        <p>
+                            Built a complete home DNS infrastructure using Raspberry Pi, featuring Pi-hole for ad-blocking, 
+                            custom DNS records for local services, and failover mechanisms. Reduced network latency by 40% 
+                            and blocked over 1M+ ads monthly.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Raspberry Pi</span>
+                            <span class="tech-tag">Pi-hole</span>
+                            <span class="tech-tag">BIND9</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Linux</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">📖 Read Guide</a>
+                            <a href="#" class="project-link">⚙️ View Config</a>
+                        </div>
+                    </div>
 
-  <footer>
-    <a href="https://skitch518.github.io/bioSite">Home</a>
-  </footer>
+                    <div class="project-card">
+                        <div class="project-icon">🌐</div>
+                        <h3>Self-Hosted Portfolio Website</h3>
+                        <p>
+                            This very website! Deployed on my home server infrastructure with automated SSL certificates, 
+                            monitoring, and backup systems. Features custom domain routing and dynamic DNS updates.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Nginx</span>
+                            <span class="tech-tag">Let's Encrypt</span>
+                            <span class="tech-tag">Cloudflare</span>
+                            <span class="tech-tag">Docker Compose</span>
+                            <span class="tech-tag">Bash</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">📖 Read Guide</a>
+                            <a href="#" class="project-link">💻 Source Code</a>
+                        </div>
+                    </div>
 
+                    <div class="project-card">
+                        <div class="project-icon">📊</div>
+                        <h3>Network Monitoring Dashboard</h3>
+                        <p>
+                            Real-time network monitoring solution tracking device connectivity, bandwidth usage, 
+                            and DNS query analytics. Built with Grafana, InfluxDB, and custom Python collectors.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Grafana</span>
+                            <span class="tech-tag">InfluxDB</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">SNMP</span>
+                            <span class="tech-tag">Telegraf</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">📊 Live Demo</a>
+                            <a href="#" class="project-link">📖 Setup Guide</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2>Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>🖥️ Programming Languages</h3>
+                        <div class="skill-list">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">SQL</span>
+                            <span class="tech-tag">HTML & CSS</span>
+                        </div>
+                    </div>
+                  <!--  
+                    <div class="skill-category">
+                        <h3>🌐 Networking</h3>
+                        <div class="skill-list">
+                            <span class="tech-tag">DNS</span>
+                            <span class="tech-tag">TCP/IP</span>
+                            <span class="tech-tag">VPN</span>
+                            <span class="tech-tag">Firewalls</span>
+                            <span class="tech-tag">DHCP</span>
+                        </div>
+                    </div>
+                    -->
+                    <div class="skill-category">
+                        <h3>🔧 Tools & Technologies</h3>
+                        <div class="skill-list">
+                            <span class="tech-tag">Raspberry Pi</span>
+                            <span class="tech-tag">GitHub</span>
+                        </div>
+                    </div>
+                    
+                  
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact">
+                    <h2>Let's Connect</h2>
+                    <p> Aspiring software developer currently studying and seeking entry-level opportunities in tech. 
+                        Open to learning and growing with the right team</p>
+                    <div class="contact-links">
+                        <a href="mailto:jasonrschriner@gmail.com" class="contact-link">
+                            📧 jasonrschriner@gmail.com
+                        </a>
+                        <a href="https://github.com/skitch518" class="contact-link">
+                            🐙 GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/jason-schriner-2580662aa/" class="contact-link">
+                            💼 LinkedIn
+                        </a>
+                        <a href="https://discord.gg/YjRXeKaERq" class="contact-link" class="contact-link">
+                            📝 Discord
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                nav.style.background = 'rgba(15, 23, 42, 0.9)';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all project cards and skill categories
+        document.querySelectorAll('.project-card, .skill-category').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+
+        // Simulate real-time status updates
+        setInterval(() => {
+            const dots = document.querySelectorAll('.status-dot');
+            dots.forEach(dot => {
+                // Randomly flicker dots to simulate real monitoring
+                if (Math.random() > 0.95) {
+                    dot.style.animationDuration = '0.5s';
+                    setTimeout(() => {
+                        dot.style.animationDuration = '2s';
+                    }, 500);
+                }
+            });
+        }, 2000);
+    </script>
 </body>
 </html>
