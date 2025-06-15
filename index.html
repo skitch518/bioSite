@@ -19,22 +19,14 @@
         </div>
     </nav>
 
-    <!-- Status Indicator -->
-    <div class="status-indicator">
-        <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-light);">Server Status</div>
-        <div class="status-item">
-            <div class="status-dot"></div>
-            <span style="font-size: 0.875rem;">DNS Server Online</span>
-        </div>
-        <div class="status-item">
-            <div class="status-dot"></div>
-            <span style="font-size: 0.875rem;">Self-Hosted</span>
-        </div>
-        <div class="status-item">
-            <div class="status-dot"></div>
-            <span style="font-size: 0.875rem;">Pi-hole Active</span>
-        </div>
-    </div>
+ <!-- Weather Widget -->
+<div class="status-indicator">
+    <div class="weather-title">Local Weather (Live)</div>
+    <div id="weather-display" class="weather-display">Loading weather...</div>
+</div>
+
+
+
 
     <main>
         <!-- Hero Section -->
@@ -257,19 +249,6 @@
             observer.observe(el);
         });
 
-        // Simulate real-time status updates
-        setInterval(() => {
-            const dots = document.querySelectorAll('.status-dot');
-            dots.forEach(dot => {
-                // Randomly flicker dots to simulate real monitoring
-                if (Math.random() > 0.95) {
-                    dot.style.animationDuration = '0.5s';
-                    setTimeout(() => {
-                        dot.style.animationDuration = '2s';
-                    }, 500);
-                }
-            });
-        }, 2000);
     </script>
 </body>
 </html>
