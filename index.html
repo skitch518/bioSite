@@ -46,7 +46,8 @@
                         <p class="subtitle">Software Development Senior at Bellevue University</p>
                         <p class="description">
                             Welcome to my corner of the internet! This very website runs on my home 
-			    infrastructure, powered by Raspberry Pi technology and custom DNS solutions.
+			    infrastructure, powered by Raspberry Pi technology and custom DNS solutions. It also serves as
+			    a home for my most recent projects.
                         </p>
                         <div class="cta-buttons">
                             <a href="#projects" class="btn btn-primary">
@@ -106,24 +107,17 @@
                         </div>
                         <div class="project-links">
                             <a href="webGuide.html" class="project-link">📖 Setup Guide</a>
-                            <a href="#" class="project-link">💻 Source Code</a>
+                            <a href="sourceCode.html" class="project-link">💻 Source Code</a>
                         </div>
                     </div>
 
                     <div class="project-card">
                         <div class="project-icon">📊</div>
-                        <h3>Network Monitoring Dashboard</h3>
+                        <h3>In Progress</h3>
                         <p>
-                            Real-time network monitoring solution tracking device connectivity, bandwidth usage, 
-                            and DNS query analytics. Built with Grafana, InfluxDB, and custom Python collectors.
+                            Working on creating a browser game to add an additional project for my site.
                         </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Grafana</span>
-                            <span class="tech-tag">InfluxDB</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">SNMP</span>
-                            <span class="tech-tag">Telegraf</span>
-                        </div>
+                        
                         <div class="project-links">
                             <a href="#" class="project-link">📊 Live Demo</a>
                             <a href="#" class="project-link">📖 Setup Guide</a>
@@ -180,7 +174,7 @@
            <img src="deansListSpring.png" alt="Deans List Spring">           
            <img src="deansListFall.png" alt="Deans List Fall">          
         </div>
-
+      </section>
 
         <!-- Contact Section -->
         <section id="contact" class="section">
@@ -199,7 +193,7 @@
                         <a href="https://www.linkedin.com/in/jason-schriner-2580662aa/" class="contact-link">
                             💼 LinkedIn
                         </a>
-                        <a href="https://discord.gg/YjRXeKaERq" class="contact-link" class="contact-link">
+                        <a href="https://discord.gg/YjRXeKaERq" class="contact-link">
                             📝 Discord
                         </a>
 
@@ -209,7 +203,16 @@
         </section>
     </main>
 
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Jason Schriner. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
