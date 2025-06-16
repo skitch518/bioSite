@@ -576,3 +576,9 @@ nav .container {
   display: flex;
   justify-content: center; /* Centers horizontally */
   }
+.center-text {
+  text-align: center;
+  margin-top: 1rem;
+  color: var(--text-muted); /* Optional: to match your theme */
+}
+
