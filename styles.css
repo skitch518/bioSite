@@ -568,3 +568,11 @@ nav .container {
 .weather-display {
     font-size: 0.875rem;
 }
+.video-container {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 2rem auto; /* Centers it horizontally */
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  }
