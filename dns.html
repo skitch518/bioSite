@@ -87,59 +87,34 @@
 
         <section id="projects" class="section">
             <div class="project-card">
-                <h2>🕳️ Pi-hole Installation & Configuration</h2>
+                <h2> 🍓Pi-OS Installation & Configuration</h2>
 
-                <h3><span class="step-counter">1 </span>Installed Pi-hole</h3>
-                <p>Ran the automated installer:</p>
-                <div class="code-block">
-curl -sSL https://install.pi-hole.net | bash
-                </div>
+                <h3><span class="step-counter">1 </span>Installed Pi-OS on Micro SD</h3>
+                    <p>Downloaded the installer from <a href="https://www.raspberrypi.com/software/" target="_blank">
+                       Raspberry Pi Software</a>.
+		       You can purchase a Raspberry Pi with a preformatted card, but I recommend formatting it yourself 
+ 		       to have more control, such as setting passwords and enabling SSH, among other configurations.</p>                
 
-                <p>During installation, configure:</p>
-                <ul>
-                    <li>Upstream DNS servers (Cloudflare: 1.1.1.1, 1.0.0.1)</li>
-                    <li>Block lists (select default lists)</li>
-                    <li>Admin web interface (Yes)</li>
-                    <li>Web server (Yes)</li>
-                    <li>Query logging (Yes)</li>
-                    <li>Privacy mode (Show everything)</li>
-                </ul>
+               <h3><span class="step-counter">2 </span>Downloaded Pi-Hole</h3>
+   		   <p>I used Claude to walk me through the installation of Pi-Hole. I am running the server headless, but I 		    initially failed to enable SSH correctly. As a result, I had to connect a monitor to the Pi to properly 		    connect it to my main PC.</p>
 
-                <div class="tip">
-                    <strong>Note:</strong> Save the admin password displayed at the end of installation!
-                </div>
+	      <h3><span class="step-counter">3 </span>Connected Client PC to DNS</h3>
+		  <p>I continued the setup process with Claude as my guide. I use Spectrum as my ISP, and my router blocks  
+		     me from making adjustments, so I had to manually set up each client.</p>
 
-                <h3><span class="step-counter">2 </span>Configured Router DNS Settings</h3>
-                <p>Update your router's DNS settings to point to your Pi-hole server:</p>
-                <ul>
-                    <li>Primary DNS: 192.168.1.100 (your Pi-hole IP)</li>
-                    <li>Secondary DNS: 1.1.1.1 (backup)</li>
-                </ul>
+	      <h3><span class="step-counter">4 </span>Set Up NVMe as Boot Drive</h3>
+		  <p>After successfully connecting my PC as a client to the new DNS server, I realized I had forgotten to
+		     set up the 1TB NVMe drive. Once again, Claude helped me partition the drive, install the necessary 
+		     software, and configure it to boot from the drive instead of the microSD card. This setup provides 
+		     increased storage and faster read/write speeds.</p>
 
-                <div class="config-section">
-                    <h4>🔧 Pi-hole Configuration Files</h4>
-                    <p><strong>Main config:</strong> <code>/etc/pihole/pihole-FTL.conf</code></p>
-                    <p><strong>Custom DNS:</strong> <code>/etc/pihole/custom.list</code></p>
-                    <p><strong>Whitelist:</strong> <code>/etc/pihole/whitelist.txt</code></p>
-                    <p><strong>Blacklist:</strong> <code>/etc/pihole/blacklist.txt</code></p>
-                </div>
-
-                <h3><span class="step-counter">3 </span>Accessed Web Interface</h3>
-                <p>navigated to:</p>
-                <div class="code-block">
-                 http://192.168.1.100/admin
-                </div>
-                <p>Logged in with the password from installation and explored the dashboard.</p>
+	      <h3><span class="step-counter"></span>What I Would Do Differently</h3>
+		  <p>I used AI to assist me with this project, but for future projects, I’d like to take more notes and 
+		     learn more from the process. I also want to try using an Orange Pi. Although they are not as 
+   		     well-supported, they offer much greater performance while still being affordable.</p>
+              
             </div>
         </section>
- <section id="projects" class="section">
-            <div class="project-card">
-                <h2>Lessons Learned</h2>
-	          <p>I learned about...</p>
-                
-            </div>
-        </section>
-
 
         <div class="nav-buttons">
             <a href="index.html" class="nav-button prev">← Home</a>
