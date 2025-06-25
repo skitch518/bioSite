@@ -80,20 +80,31 @@
                     <p>Downloaded the installer from <a href="https://www.raspberrypi.com/software/" target="_blank">
                        Raspberry Pi Software</a>.
 		       You can purchase a Raspberry Pi with a preformatted card, but I recommend formatting it yourself 
- 		       to have more control, such as setting passwords and enabling SSH, among other configurations.</p>                
+ 		       to have more control, such as setting passwords and enabling SSH, among other configurations. 			       After formatting the micro sd I inserted it into the pi and was able to boot sucessfully.</p>                
 
-               <h3><span class="step-counter">2 </span>Downloaded Pi-Hole</h3>
-   		   <p>I used Claude to walk me through the installation of Pi-Hole. I am running the server headless, but I 		    initially failed to enable SSH correctly. As a result, I had to connect a monitor to the Pi to properly 		    connect it to my main PC.</p>
+              <h3><span class="step-counter">2</span> Downloaded Pi-hole</h3>
+	          <p> To install Pi-hole, I cloned the GitHub repository and followed the installation steps from the 
+  		  <a href="https://docs.pi-hole.net/main/basic-install/" target="_blank" rel="noopener noreferrer">official 		   documentation</a>:</p>
+			<pre><code>git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole
+			cd "Pi-hole/automated install/"
+			sudo bash basic-install.sh</code></pre>
 
-	      <h3><span class="step-counter">3 </span>Connected Client PC to DNS</h3>
-		  <p>I continued the setup process with Claude as my guide. I use Spectrum as my ISP, and my router blocks  
-		     me from making adjustments, so I had to manually set up each client.</p>
 
-	      <h3><span class="step-counter">4 </span>Set Up NVMe as Boot Drive</h3>
-		  <p>After successfully connecting my PC as a client to the new DNS server, I realized I had forgotten to
-		     set up the 1TB NVMe drive. Once again, Claude helped me partition the drive, install the necessary 
-		     software, and configure it to boot from the drive instead of the microSD card. This setup provides 
-		     increased storage and faster read/write speeds.</p>
+	     <h3><span class="step-counter">3</span> Connected Client PC to DNS</h3>
+		 <p> There are two methods to enable DNS. One involves configuring your router, which is the preferred
+		     method as it only requires setting up a single device. However, my ISP does not allow router-level
+		     DNS configuration, so I had to manually configure each client device to connect to the DNS server
+		     individually.</p>
+
+
+	    <h3><span class="step-counter">4</span> Set Up NVMe as Boot Drive</h3>
+		<p> The previous steps are all that's necessary to set up a DNS server on a Raspberry Pi. My build 
+		    includes a HAT to utilize an NVMe SSD, which increases both storage capacity and performance. I used
+		    the command line to partition the drive and install the operating system onto the SSD.</p>
+
+	        <p> It’s recommended to keep the microSD card as the primary boot device. Once the OS is installed on the 		    SSD, you can remove the microSD card to force the Pi to boot from the SSD. This approach provides a
+		    fallback—if any issues occur with the SSD, simply reinsert the microSD card to boot back into the
+		    original system.</p>
 
 	      <h3><span class="step-counter"></span>Impact</h3>
 		  <p>This project allowed me to gain hands-on experience working with a Raspberry Pi and setting up a DNS
