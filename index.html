@@ -21,21 +21,21 @@
 
  <!-- Weather Widget -->
 <div class="status-indicator">
-    <div class="weather-title">Local Weather (Live)</div>
-    <div id="weather-display" class="weather-display">Loading weather...</div>
+  <h3 id="city" class="weather-title"></h3>
+  <p id="temp" class="weather-display"></p>
+  <p id="description" class="weather-display"></p>
 </div>
+
     <main>
         <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="container">
                 <div class="hero-content fade-in">
                     <div class="hero-text">
-                        <h1>Software Development Student</h1>
-                        <p class="subtitle">Software Development Senior at Bellevue University</p>
+                        <h1>Software Developer</h1>
+                        <p class="subtitle">Recent Software Development Graduate from Bellevue University</p>
                         <p class="description">
-                            Welcome to my corner of the internet! This very website runs on my home 
-			    infrastructure, powered by Raspberry Pi technology and custom DNS solutions. It also serves as
-			    a home for my most recent projects.
+                            Welcome to my corner of the internet! This website serves as a host for my personal projects.
                         </p>
                         <div class="cta-buttons">
                             <a href="#projects" class="btn btn-primary">
@@ -265,6 +265,30 @@
             el.style.opacity = '0';
             observer.observe(el);
         });
+
+
+navigator.geolocation.getCurrentPosition(
+  async (position) => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const url = `/api/weather?lat=${lat}&lon=${lon}`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      document.getElementById("city").textContent = data.name;
+      document.getElementById("temp").textContent = `${Math.round(
+      data.main.temp)}°C`;
+      document.getElementById("description").textContent =
+      data.weather[0].description;
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching weather:", error);
+    }
+  },
+  (error) => {
+    console.error("Geolocation error:", error);
+  }
+);
 
     </script>
 </body>
