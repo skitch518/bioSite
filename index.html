@@ -63,55 +63,58 @@
                 <h2>Featured Projects</h2>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <div class="project-icon">🏠</div>
-                        <h3>Home DNS Server with Raspberry Pi</h3>
-                        <p>
-                            Built a complete home DNS infrastructure using Raspberry Pi, featuring Pi-hole for ad-blocking, 
-                            custom DNS records for local services, and failover mechanisms. 
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Raspberry Pi</span>
-                            <span class="tech-tag">Pi-hole</span>
-                            <span class="tech-tag">Linux</span>
-                            <span class="tech-tag">UFW</span>
-                            <span class="tech-tag">Wiregaurd VPN</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="dns.html" class="project-link">📖 Project Guide</a>
-                            <a href="dnsPhotos.html" class="project-link">📷 View Photos</a>
-                        </div>
+                    <div class="project-icon">🌐</div>
+                    <h3>Portfolio Website</h3>
+                    <p>
+                      This very website! In constant development as I build new projects I will post them here with links to the necessary GitHub repo's.
+                    </p>
+                    <div class="tech-stack">
+                    <span class="tech-tag">Java</span>
+                    <span class="tech-tag">Json</span>
+                    <span class="tech-tag">JSP</span>
                     </div>
-
-                    <div class="project-card">
-                        <div class="project-icon">🌐</div>
-                        <h3>Self-Hosted Portfolio Website</h3>
-                        <p>
-                            This very website! Deployed on my home server infrastructure with automated SSL certificates, 
-                            monitoring, and backup systems. Features custom domain routing and dynamic DNS updates.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">Json</span>
-                            <span class="tech-tag">JSP</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="webGuide.html" class="project-link">📖 Setup Guide</a>
-                            <a href="sourceCode.html" class="project-link">💻 Source Code</a>
-                        </div>
+                       <div class="project-links">
+                           <a href="webGuide.html" class="project-link">📖 Setup Guide</a>
+                           <a href="sourceCode.html" class="project-link">💻 Source Code</a>
+                       </div>
+                    </div>
+          
+		 <div class="project-card">
+                    <div class="project-icon">📊</div>
+                    <h3>Stock Portfolio Tracker</h3>
+                    <p>
+                       Multi-platform investment aggregator providing unified portfolio analytics across traditional brokerages, cryptocurrency exchanges, and alternative asset platforms. Handles asynchronous data fetching, real-time price updates, and comprehensive performance metrics with support for multiple asset classes.
+                      
+                    </p>
+                    <div class="tech-stack">
+                    <span class="tech-tag">Spring</span>
+                    <span class="tech-tag">Spring Security</span>
+                    <span class="tech-tag">MySql</span>
+      		    <span class="tech-tag">Alpha Vantage</span>
+                    </div>
+                       <div class="project-links">
+                          <a href="sourceCode.html" class="project-link">💻 Source Code</a>
+                       </div>
                     </div>
 
                     <div class="project-card">
                         <div class="project-icon">📊</div>
                         <h3>In Progress</h3>
                         <p>
-                            Working on creating a browser game to add an additional project for my site.
+                            Developing a predictive model to assess whether retail traders are accurately pricing events in a prediction market, combining statistical analysis and machine learning to evaluate market efficiency and
+			    trader behavior.
                         </p>
-                        
-                        <div class="project-links">
-                            <a href="#" class="project-link">📊 Live Demo</a>
-                            <a href="#" class="project-link">📖 Setup Guide</a>
-                        </div>
+                         <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">PyTorch</span>
+      		    <span class="tech-tag">NBA_API</span>
                     </div>
+                      <div class="project-links">
+                          <a href="https://github.com/skitch518/predictionMarketModel" class="project-link">💻 Source Code</a>
+                       </div>
+
+		   </div>
                 </div>
             </div>
         </section>
@@ -126,8 +129,10 @@
                         <div class="skill-list">
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">Java</span>
-                            <span class="tech-tag">SQL</span>
+                            <span class="tech-tag">MySQL</span>
                             <span class="tech-tag">HTML & CSS</span>
+			    <span class="tech-tag">Spring</span>
+
                         </div>
                     </div>
                   <!--  
@@ -145,8 +150,9 @@
                     <div class="skill-category">
                         <h3>🔧 Tools & Technologies</h3>
                         <div class="skill-list">
-                            <span class="tech-tag">Raspberry Pi</span>
+                            <span class="tech-tag">Agile</span>
                             <span class="tech-tag">GitHub</span>
+
                         </div>
                     </div>
                     
@@ -268,26 +274,26 @@
         });
 
 
-navigator.geolocation.getCurrentPosition(
-  async (position) => {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    const url = `https://long-base-8c4f.jasonrschriner.workers.dev?lat=${lat}&lon=${lon}`;
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      document.getElementById("city").textContent = data.name;
-      document.getElementById("temp").textContent = `${Math.round(data.main.temp)}°C`;
-      document.getElementById("description").textContent = data.weather[0].description;
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching weather:", error);
-    }
-  },
-  (error) => {
-    console.error("Geolocation error:", error);
-  }
-);
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const url = `https://long-base-8c4f.jasonrschriner.workers.dev?lat=${lat}&lon=${lon}`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        document.getElementById("city").textContent = data.name;
+        document.getElementById("temp").textContent = `${Math.round(data.main.temp)}°C`;
+        document.getElementById("description").textContent = data.weather[0].description;
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching weather:", error);
+      }
+   },
+    (error) => {
+     console.error("Geolocation error:", error);
+   }
+ );
     </script>
 </body>
 </html>
