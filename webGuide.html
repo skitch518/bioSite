@@ -3,96 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌐 Setting Up My Home Web Server - Complete Guide</title>
+    <title>🌐 Creating my Portfolio Site</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <div class="guide-header">
-            <h1>🌐 Setting Up My Home Web Server</h1>
-            <p class="subtitle">Walkthrough of my self-hosted portfolio website</p>
+            <h1>🌐 Creating a Portfolio Site to host project links and walkthroughs</h1>
         </div>
-
+        
         <section id="overview" class="section">
             <div class="project-card">
                 <h2>🎯 Project Overview</h2>
-                <p>This guide details the steps I took to set up my home web server infrastructure, including server installation, dynamic DNS setup, SSL certificate configuration, and more.</p>
+                <p>The creation of this site was the first project I worked on post-graduation. I wanted a centralized hub to showcase my projects, link to my GitHub and LinkedIn, and demonstrate practical DevOps skills. What started as a simple static site evolved into a comprehensive learning experience in web hosting, infrastructure management, and secure API integration.</p>
+            </div>
+        </section>
 
-                <div class="architecture-diagram">
-                    <h4>🏗️ Network Architecture</h4>
-                    <p><strong>Internet</strong> ↔ <strong>Router</strong> ↔ <strong>Home Server</strong> ↔ <strong>My Portfolio Website</strong></p>
-                    <p>📱 Phones • 💻 Laptops • 🖥️ Desktop PCs</p>
-                </div>
-
-                <h3>Key Features</h3>
+        <section id="evolution" class="section">
+            <div class="project-card">
+                <h2>🔄 Hosting Evolution</h2>
+                
+                <h3>Phase 1: GitHub Pages</h3>
+                <p><strong>Technologies:</strong> GitHub Pages, Static HTML/CSS/JavaScript</p>
+                <p>I started with GitHub Pages as it was familiar territory from college coursework. This provided a solid foundation for understanding static site deployment and version control integration.</p>
+                <p><strong>What I learned:</strong> Git-based deployment workflows, Jekyll basics, DNS configuration for custom domains, limitations of static hosting.</p>
+                
+                <h3>Phase 2: Self-Hosting (Raspberry Pi + Nginx + Cloudflare Tunnel)</h3>
+                <p><strong>Technologies:</strong> Raspberry Pi, Nginx web server, Cloudflare Tunnel, Linux server administration</p>
+                <p>To gain hands-on experience with server management, I transitioned to local hosting. This phase taught me the most about infrastructure:</p>
                 <ul>
-                    <li><strong>Secure SSL Certificates:</strong> Automated SSL certificate generation and renewal with Let's Encrypt.</li>
-                    <li><strong>Dynamic DNS:</strong> Keeps the website accessible even with changing IP addresses.</li>
-                    <li><strong>Backup & Monitoring:</strong> Automated backup system and server health monitoring.</li>
-                    <li><strong>Custom Domain:</strong> Set up routing for a custom domain for better accessibility.</li>
+                    <li><strong>Nginx configuration:</strong> Set up virtual hosts, configured SSL/TLS certificates, optimized static file serving</li>
+                    <li><strong>Cloudflare Tunnel:</strong> Bypassed ISP port blocking (80/443) by creating a secure tunnel from my Raspberry Pi to Cloudflare's edge network, eliminating the need for port forwarding</li>
+                    <li><strong>Linux administration:</strong> User permissions, systemd services, log monitoring, security hardening</li>
+                    <li><strong>Network architecture:</strong> Understanding reverse proxies, DNS propagation, CDN benefits</li>
+                </ul>
+                <p><strong>Challenges solved:</strong> ISP residential connection limitations, dynamic IP management, securing a publicly accessible home server.</p>
+                <p><strong>Why I moved on:</strong> While successful, the Raspberry Pi lacked a UPS (uninterruptible power supply), leading to potential downtime during power fluctuations. Additionally, I wanted to repurpose the Pi for other projects and IoT experiments.</p>
+                
+                <h3>Phase 3: Cloudflare Pages (Current)</h3>
+                <p><strong>Technologies:</strong> Cloudflare Pages, Cloudflare Workers, Git integration, Serverless functions</p>
+                <p>Moving to Cloudflare Pages provided enterprise-grade hosting with minimal operational overhead:</p>
+                <ul>
+                    <li><strong>Automatic deployments:</strong> Git push triggers immediate builds and deployments</li>
+                    <li><strong>Global CDN:</strong> Content served from edge locations worldwide for optimal performance</li>
+                    <li><strong>99.99% uptime SLA:</strong> Eliminated availability concerns from home hosting</li>
+                    <li><strong>Zero maintenance:</strong> No server updates, patches, or infrastructure management needed</li>
                 </ul>
             </div>
         </section>
 
-        <section id="hardware-software" class="section">
+        <section id="technical" class="section">
             <div class="project-card">
-                <h2>🛠️ Hardware & Software Used</h2>
+                <h2>⚙️ Technical Implementation</h2>
+                
+                <h3>API Integration: OpenWeather API</h3>
+                <p>I integrated the OpenWeather API to display real-time weather data, providing practical experience with external API consumption and asynchronous JavaScript.</p>
+                
+                <h3>Security Challenge: Protecting API Keys</h3>
+                <p>The primary challenge with client-side API calls is exposure of API keys in browser developer tools. I solved this using Cloudflare Workers:</p>
+                
+                <h4>Initial approach (Insecure):</h4>
+                <pre><code>// Direct API call from client - EXPOSES API KEY
+fetch(`https://api.openweathermap.org/data/2.5/weather?q=London&appid=${API_KEY}`);</code></pre>
+                
+                <h4>Solution: Cloudflare Worker as Proxy</h4>
+                <p>I created a serverless function that acts as a secure intermediary:</p>
+                <pre><code>// Cloudflare Worker (runs on edge servers)
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
 
-                <div class="requirements">
-                    <h4>Hardware</h4>
-                    <ul>
-                        <li>Home Server </li>
-                        <li>Raspberry Pi </li>
-                        <li>1TB SSD</li>
-                        <li>Router with port forwarding capabilities</li>
-                    </ul>
-                </div>
+async function handleRequest(request) {
+  const url = new URL(request.url)
+  const city = url.searchParams.get('city')
+  
+  // API key stored in Worker environment variables (secure)
+  const apiKey = OPENWEATHER_API_KEY
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+  
+  const response = await fetch(apiUrl)
+  const data = await response.json()
+  
+  return new Response(JSON.stringify(data), {
+    headers: { 
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*' 
+    }
+  })
+}</code></pre>
 
-                <div class="requirements">
-                    <h4>Software Used</h4>
-                    <ul>
-                        <li>Nginx (Reverse Proxy)</li>
-                        <li>Let's Encrypt (for SSL Certificates)</li>
-                        <li>Dynamic DNS Service (e.g., DuckDNS)</li>
-                        <li>Bash Scripts for Automation</li>
-                    </ul>
-                </div>
+                <p><strong>How it works:</strong></p>
+                <ol>
+                    <li>Client-side JavaScript calls my Worker endpoint (no API key exposed)</li>
+                    <li>Worker retrieves the API key from secure environment variables</li>
+                    <li>Worker makes the API request server-side</li>
+                    <li>Worker returns the weather data to the client</li>
+                </ol>
+                
+                <p><strong>Benefits of this approach:</strong></p>
+                <ul>
+                    <li>API key never exposed to client browsers</li>
+                    <li>Request rate limiting can be implemented at the Worker level</li>
+                    <li>Additional validation and sanitization of user input</li>
+                    <li>Potential for response caching to reduce API calls</li>
+                </ul>
+                
+                <h3>Difference from College Approach (dotenv)</h3>
+                <p>In college, I used dotenv for environment variables in Node.js applications running on a server. However, this doesn't work for static sites where JavaScript runs entirely in the browser. The Cloudflare Worker solution provides server-side execution in a serverless environment, bridging the gap between static hosting and secure API access.</p>
             </div>
         </section>
 
-        <section id="server-setup" class="section">
+        <section id="architecture" class="section">
             <div class="project-card">
-                <h2>🚀 Setting Up the Home Server</h2>
-
-                <h3><span class="step-counter">1 </span>Installed Pi-hole on Home Server</h3>
-                <p>First, I installed the latest stable version of Pi-hole on the home server and performed an initial system update:</p>
-                <div class="code-block">
-                    
-                </div>
-                <h3><span class="step-counter">2 </span>Installed Nginx</h3>
-                <p>I installed **Nginx** to serve the website and act as a reverse proxy for the Java backend:</p>
-                <div class="code-block">
-                </div>
-
-                <h3><span class="step-counter">3 </span>Set Up SSL with Let's Encrypt</h3>
-                <p>Used **Certbot** to automatically generate and install SSL certificates for secure HTTPS connections:</p>
-                <div class="code-block">
-                    
-                </div>
-
-                <p>Set up automatic certificate renewal to avoid manual intervention:</p>
-        </section>
-
-        <section id="backup-monitoring" class="section">
-            <div class="project-card">
-                <h2> Lessons Learned</h2>
-                <p>I learned how to...</p>
+                <h2>🏗️ Current Architecture</h2>
+                <p><strong>Deployment Pipeline:</strong></p>
+                <ol>
+                    <li>Code changes pushed to GitHub repository</li>
+                    <li>Cloudflare Pages detects commit via webhook</li>
+                    <li>Automated build process executes</li>
+                    <li>Site deployed to Cloudflare's global CDN</li>
+                    <li>Traffic routed through nearest edge location</li>
+                </ol>
                 
+                <p><strong>Performance optimizations:</strong></p>
+                <ul>
+                    <li>Static asset caching at edge locations</li>
+                    <li>HTTP/2 and HTTP/3 support</li>
+                    <li>Automatic image optimization</li>
+                </ul>
+            </div>
         </section>
 
+        <section id="lessons" class="section">
+            <div class="project-card">
+                <h2>📚 Key Takeaways</h2>
+                <ul>
+                    <li><strong>Infrastructure as code:</strong> Understanding the tradeoffs between self-hosting and managed services</li>
+                    <li><strong>Security-first development:</strong> Never expose credentials client-side, always use server-side proxies for sensitive operations</li>
+                    <li><strong>Serverless architecture:</strong> Cloudflare Workers provide powerful edge computing without server management</li>
+                    <li><strong>DevOps fundamentals:</strong> CI/CD pipelines, automated deployments, monitoring and logging</li>
+                    <li><strong>Network engineering:</strong> DNS, CDNs, reverse proxies, and tunneling technologies</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="future" class="section">
+            <div class="project-card">
+                <h2>🚀 Future Enhancements</h2>
+                <p>This site serves as my ongoing web development practice ground and project management hub. I plan to continuously update it as I learn new technologies and complete new projects.</p>
+                <ul>
+                    <li><strong>Comment system:</strong> Implement a commenting feature (likely using a service like Disqus, utterances with GitHub issues, or a custom Cloudflare Workers solution) to gather feedback and engage with visitors</li>
+                    <li><strong>Project management dashboard:</strong> Expand the site to better organize and showcase my projects with filtering, search, and categorization features</li>
+                    <li><strong>Experimentation space:</strong> Use the site as a sandbox to practice new web development concepts, frameworks, and techniques as I encounter them</li>
+                    <li><strong>Iterative improvements:</strong> Continuously refine the design, user experience, and functionality based on my evolving skills and feedback from the community</li>
+                </ul>
+            </div>
+        </section>
+      
         <div class="nav-buttons">
             <a href="index.html" class="nav-button prev">← Home</a>
         </div>
-    
+    </div>
 </body>
 </html>
