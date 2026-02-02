@@ -554,11 +554,20 @@ nav .container {
     border-radius: 8px;
     padding: 1rem;
     max-width: 300px;
+    width: calc(100% - 2rem); /* Ensures it fits on mobile with margin */
     margin: 2rem auto;
     text-align: center;
     color: var(--text-light);
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
+/* Additional mobile optimization */
+@media (max-width: 768px) {
+    .status-indicator {
+        margin: 1rem;
+        padding: 0.75rem;
+    }
+}
 .weather-title {
     font-weight: 600;
     margin-bottom: 0.5rem;
