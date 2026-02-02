@@ -1,7 +1,5 @@
 # bioSite
-<h1>CSD 340 Web Development with HTML and CSS</h1>
-<h2>Contributors</h2>
-<ul>
-  <p>Jason Schriner</p>
-  <p>Adam Bailey</p>
-</ul>
+<h1>Personal Portfolio Website</h1>
+<h2>Goal:</h2>
+<p>This website is meant to act as a portfolio to demonstrate projects that I have completed and or are currently working on.</p>
+
