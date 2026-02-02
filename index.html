@@ -271,7 +271,7 @@ navigator.geolocation.getCurrentPosition(
   async (position) => {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
-    const url = `https://long-base-8c4f.jasonrschriner.workers.dev?lat=${lat}&lon=${lon}`;
+    const url = `const url = `https://long-base-8c4f.jasonrschriner.workers.dev?lat=${lat}&lon=${lon}`;`;
     try {
       const response = await fetch(url);
       const data = await response.json();
