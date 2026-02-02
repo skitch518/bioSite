@@ -271,15 +271,15 @@ navigator.geolocation.getCurrentPosition(
   async (position) => {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
-    const url = `/api/weather?lat=${lat}&lon=${lon}`;
+    const url = `https://long-base-8c4f.jasonrschriner.workers.dev?lat=${lat}&lon=${lon}`;
     try {
       const response = await fetch(url);
       const data = await response.json();
       document.getElementById("city").textContent = data.name;
       document.getElementById("temp").textContent = `${Math.round(
-      data.main.temp)}°C`;
+        data.main.temp)}°C`;
       document.getElementById("description").textContent =
-      data.weather[0].description;
+        data.weather[0].description;
       console.log(data);
     } catch (error) {
       console.error("Error fetching weather:", error);
@@ -289,7 +289,6 @@ navigator.geolocation.getCurrentPosition(
     console.error("Geolocation error:", error);
   }
 );
-
     </script>
 </body>
 </html>
