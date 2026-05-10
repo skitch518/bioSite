@@ -251,25 +251,7 @@
             }
         });
 
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeIn 1s ease-out forwards';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all project cards and skill categories
-        document.querySelectorAll('.project-card, .skill-category').forEach(el => {
-            el.style.opacity = '0';
-            observer.observe(el);
-        });
+        
 
 
   navigator.geolocation.getCurrentPosition(

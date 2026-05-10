@@ -1,3 +1,6 @@
+/* ===================================
+   Base & Variables
+   =================================== */
 * {
     margin: 0;
     padding: 0;
@@ -5,21 +8,21 @@
 }
 
 :root {
-    --primary:2580f8;
-    --primary-dark: #0d43d6;
+    --primary: #2580f8;
+    --primary-dark: #1a5fc4;
     --secondary: #64748b;
-    --accent: #0ea5e9;
-    --bg-dark: #0f172a;
-    --bg-card: #1e293b;
+    --accent: #f59e0b;
+    --bg-dark: #0a1628;
+    --bg-card: #102544;
     --text-light: #f1f5f9;
     --text-muted: #94a3b8;
-    --border: #334155;
+    --border: #1e3a5f;
     --success: #10b981;
 }
 
 body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a202c 100%);
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #0d1d3a 100%);
     color: var(--text-light);
     line-height: 1.6;
     overflow-x: hidden;
@@ -31,12 +34,14 @@ body {
     padding: 0 2rem;
 }
 
-/* Navigation */
+/* ===================================
+   Navigation
+   =================================== */
 nav {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(15, 23, 42, 0.9);
+    background: rgba(10, 22, 40, 0.9);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     z-index: 1000;
@@ -88,7 +93,9 @@ nav .container {
     width: 100%;
 }
 
-/* Hero Section */
+/* ===================================
+   Hero Section
+   =================================== */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -104,7 +111,7 @@ nav .container {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23334155" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%231e3a5f" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
     opacity: 0.3;
 }
 
@@ -119,6 +126,26 @@ nav .container {
 
 .hero-text {
     max-width: 600px;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.hero .subtitle {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.hero .description {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
 }
 
 .hero-image {
@@ -145,34 +172,9 @@ nav .container {
     transform: scale(1.05);
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero .subtitle {
-    font-size: 1.5rem;
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-}
-
-.hero .description {
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin-bottom: 2rem;
-    color: var(--text-muted);
-}
-
+/* ===================================
+   Buttons
+   =================================== */
 .cta-buttons {
     display: flex;
     gap: 1rem;
@@ -195,12 +197,12 @@ nav .container {
 .btn-primary {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 15px rgba(37, 128, 248, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 8px 25px rgba(37, 128, 248, 0.4);
 }
 
 .btn-secondary {
@@ -214,7 +216,9 @@ nav .container {
     color: var(--accent);
 }
 
-/* Status Indicator */
+/* ===================================
+   Weather Widget 
+   =================================== */
 .status-indicator {
     position: fixed;
     top: 100px;
@@ -224,34 +228,25 @@ nav .container {
     border-radius: 0.75rem;
     padding: 1rem;
     min-width: 200px;
+    max-width: 300px;
     z-index: 999;
+    text-align: center;
+    color: var(--text-light);
 }
 
-.status-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.weather-title {
+    font-weight: 600;
     margin-bottom: 0.5rem;
+    font-size: 1rem;
 }
 
-.status-item:last-child {
-    margin-bottom: 0;
+.weather-display {
+    font-size: 0.875rem;
 }
 
-.status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--success);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-}
-
-/* Projects Section */
+/* ===================================
+   Sections (shared)
+   =================================== */
 .section {
     padding: 5rem 0;
 }
@@ -263,6 +258,9 @@ nav .container {
     color: var(--text-light);
 }
 
+/* ===================================
+   Projects
+   =================================== */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -286,7 +284,7 @@ nav .container {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
+    background: var(--accent);
 }
 
 .project-card:hover {
@@ -326,12 +324,12 @@ nav .container {
 }
 
 .tech-tag {
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba(37, 128, 248, 0.1);
     color: var(--accent);
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
     font-size: 0.875rem;
-    border: 1px solid rgba(37, 99, 235, 0.2);
+    border: 1px solid rgba(37, 128, 248, 0.2);
 }
 
 .project-links {
@@ -350,7 +348,9 @@ nav .container {
     color: var(--primary);
 }
 
-/* Skills Section */
+/* ===================================
+   Skills
+   =================================== */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -377,7 +377,23 @@ nav .container {
     justify-content: center;
 }
 
-/* Contact Section */
+/* ===================================
+   Achievements
+   =================================== */
+#achievements img {
+    max-width: 200px;
+    height: auto;
+}
+
+.center-text {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--text-muted);
+}
+
+/* ===================================
+   Contact
+   =================================== */
 .contact {
     background: var(--bg-card);
     border-radius: 1rem;
@@ -415,7 +431,63 @@ nav .container {
     color: var(--accent);
 }
 
-/* Responsive Design */
+/* ===================================
+   Guide Page Header (separate page)
+   =================================== */
+.guide-header {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.guide-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+.guide-header .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+
+.guide-header .difficulty-level {
+    font-size: 1rem;
+    background-color: var(--bg-card);
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    border-radius: 0.5rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    margin-top: 1rem;
+}
+
+/* ===================================
+   Animations
+   =================================== */
+.fade-in {
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* ===================================
+   Responsive
+   =================================== */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -440,7 +512,9 @@ nav .container {
         position: relative;
         top: auto;
         right: auto;
-        margin: 2rem 0;
+        margin: 1rem auto;
+        padding: 0.75rem;
+        width: calc(100% - 2rem);
     }
 
     .projects-grid {
@@ -456,139 +530,3 @@ nav .container {
         gap: 1rem;
     }
 }
-
-/* Animations */
-.fade-in {
-    animation: fadeIn 1s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-#achievements img {
-    max-width: 200px;
-    height: auto;
-}
-.guide-header {
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-}
-.guide-header h1 {
-    font-size: 2.5rem;
-    color: var(--primary);
-}
-.guide-header .subtitle {
-    font-size: 1.25rem;
-    color: var(--text-muted);
-}
-.guide-header .difficulty-level {
-    font-size: 1rem;
-    background-color: var(--bg-card);
-    padding: 0.5rem 1rem;
-    display: inline-block;
-    border-radius: 0.5rem;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    margin-top: 1rem;
-}
-.guide-header {
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2rem;
-    text-align: center; /* Centers text inside */
-}
-.photo-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .photo-item {
-      background: #1e293b;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .photo-item img {
-      width: 100%;
-      height: auto;
-      border-radius: 0.25rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .photo-item p {
-      font-size: 0.875rem;
-      color: var(--text-light);
-    }
-.nav-buttons {
-    position: fixed;
-    bottom: 20px;   /* distance from the bottom */
-    right: 20px;    /* distance from the right */
-    z-index: 1000;  /* ensures it stays above other elements if needed */
-}
-
-.nav-button {
-    background-color: #007bff; /* Example styling */
-    color: white;
-    padding: 10px 15px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.nav-button:hover {
-    background-color: #0056b3;
-}
-.status-indicator {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 1rem;
-    max-width: 300px;
-    width: calc(100% - 2rem); /* Ensures it fits on mobile with margin */
-    margin: 2rem auto;
-    text-align: center;
-    color: var(--text-light);
-    box-sizing: border-box; /* Include padding in width calculation */
-}
-
-/* Additional mobile optimization */
-@media (max-width: 768px) {
-    .status-indicator {
-        margin: 1rem;
-        padding: 0.75rem;
-    }
-}
-.weather-title {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-}
-
-.weather-display {
-    font-size: 0.875rem;
-}
-
-.video-container {
-  position: relative;
-  overflow: hidden;
-  max-width: 100%;
-  margin: 2rem auto; /* Centers it horizontally */
-  display: flex;
-  justify-content: center; /* Centers horizontally */
-  }
-.center-text {
-  text-align: center;
-  margin-top: 1rem;
-  color: var(--text-muted); /* Optional: to match your theme */
-}
-
